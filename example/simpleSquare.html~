@@ -1,0 +1,43 @@
+<head>
+<title>Simple muu2D square</title>
+<script src="../src/base.js"></script>
+<script src="../src/sprite.js"></script>
+</head>
+
+<body>
+<canvas id="canvas" width="1000" height="1000">
+
+</canvas>
+
+<script>
+window.onload = function(){
+	var muu = new muu2d;
+	var layer = muu.addCanvas("canvas", false);
+	var square0 = new Sprite(100,100);	
+	square0.stroke("rgb(0,255,0)");
+	square0.fill("rgba(220,235,220, 0.5)");
+	var square1 = new Sprite(100,50);	
+	square1.stroke("rgb(255,0,0)");
+	square1.fill("rgba(255,240,240, 0.5)");
+	var square2 = new Sprite(50,100);
+	square2.stroke("rgb(0,0,255)");
+	square2.fill("rgba(240,240,255, 0.5)");
+
+	var circle = new Circle;
+	circle.stroke("rgb(200,200,10)");
+	circle.fill("rgb(240,240,100)")
+	circle.moveTo(150,-50);
+
+	var poly = new Polygon().stroke("rgba(10,10,250,0)").scale(100);
+/*
+	square0.moveTo(50,50);
+	square1.moveTo(50,50);
+	square2.moveTo(50,50);
+*/
+	layer.moveTo(100,100);
+	layer.rotation(0.78);
+	layer.add(square0).add(square1).add(square2).add(circle).add(poly);
+	muu.renderAll();
+}
+</script>
+</body>
