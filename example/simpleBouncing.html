@@ -1,0 +1,56 @@
+<head>
+<title>Simple muu2D square</title>
+<script src="../src/muu2dbase.js"></script>
+<script src="../src/muu2dshapes.js"></script>
+</head>
+
+<body>
+<canvas id="fondo" width="1000" height="900" style="position:absolute">
+</canvas>
+<canvas id="canvas" width="1000" height="900" style="position:absolute">
+
+</canvas>
+
+<script>
+var muu;
+window.onload = function(){
+	muu = new muu2d;
+
+	var fondo = muu.addCanvas("fondo", false);
+
+	fondo.add(new Rect(400, 300).fill("rgb(10,200,50)").stroke("rgb(0,0,25)"));
+
+	fondo.moveTo(10,15);
+	fondo.render();
+
+	var layer = muu.addCanvas("canvas", true);
+	var bouncing = new Circle(20, 4);
+
+	bouncing.stroke("rgb(200,200,10)");
+	bouncing.fill("rgb(240,240,100)")
+	bouncing.moveTo(0,-150);
+
+	layer.moveTo(190, 160);
+	layer.add(bouncing);
+	var up = false;
+	var right = true;
+
+	function renderGraphics(step){
+		var y = bouncing.getPos().y, x = bouncing.getPos().x;
+
+		if(up && y <=-150) up = false;
+		else if(!up && y>= 150) up = true; 
+
+		if(right && x >=200) right = false;
+		else if(!right && x<= -160) right = true; 
+
+		bouncing.moveTo(x + 3*(right ? 1 : -1), y+ 6*(up ? -1 : 1));
+
+		muu.render();
+		requestAnimationFrame(renderGraphics)
+	}
+	requestAnimationFrame(renderGraphics);
+
+}
+</script>
+</body>

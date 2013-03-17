@@ -1,0 +1,133 @@
+var IDS = 0;
+var LAYERS = [];
+function v2 (x,y){
+	this.x = x || 0, this.y = y || 0;
+	this.add = function(x,y){
+		if(x instanceof v2){
+			this.x += x.x;
+			this.y += x.y;
+		}
+		else {
+			this.x += x;
+			this.y  += y;
+		}
+	return this;
+	}
+	this.minus = function(){
+		return new v2(-this.x, -this.y)
+	}
+	this.sub = function(x, y){
+		if(x instanceof v2){
+			this.x -= x.x;
+			this.y -= x.y;
+		}
+		else {
+			this.x -= x;
+			this.y  -= y;
+		}
+	return this;
+	}
+	this.dot = function(x,y){
+		if(x instanceof v2)
+			return this.x *x.x + this.y+ x.y;	
+		else return this.x*x+this.y*y
+	}
+	this.lenSquared = function(){
+		return this.dot(this);
+	}
+	this.len = function (){
+		return Math.sqrt(this.lenSquared);
+	}
+	this.norm = function(){
+		var l = this.len();
+		return new v2(this.x/l, this.y/l);
+	}
+}
+
+function muuNode (){
+	this.id = IDS;
+	IDS ++;
+	this.parent = false;
+	this.position = new v2();
+	this.rotation = 0;
+	this.scale = 1;
+	this.events; // TODO
+}
+
+muuNode.prototype.moveTo = function(pos, y){
+	if(pos instanceof v2) this.position = pos;
+	else this.position = new v2(pos, y);
+	return this;
+}
+
+muuNode.prototype.getPos = function(){
+	return this.position;
+}
+
+muuNode.prototype.getAbsPos = function(){
+	if(this.parent) return new v2.add(this.getPos(), this.parent.getAbsPos());
+	else return this.getPos();
+}
+
+muuNode.prototype.rotation = function(angle){
+	if(typeof angle === "undefined") return this.rotation 
+	else this.rotation = angle
+	return this;
+}
+
+muuNode.prototype.scale(scale){
+	if(typeof scale === "undefined") return this.scale 
+	else this.scale = scale
+	return this;
+}
+
+function Layer = function(dinamic){
+	this.dinamic = dinamic || "dinamic";
+	this.objects = [];
+}
+
+Layer.prototype = new muuNode();
+Layer.prototype.constructor = Layer;
+
+Layer.prototype.add = function(nod){
+	nod.parent = this;
+	this.objects.push(nod);
+	return this;
+}
+
+Layer.prototype.rem =function(nod){
+	nod.parent = false;
+	this.objects.splice(objects.indexOf(nod),1);
+	return this;
+}
+
+Layer.prototype.paintTo(canvas) = function{
+	for(var i in objects){
+		var obj = objects[i];
+		if(obj instanceof Layer)
+			obj.paintTo(canvas);
+		else
+			obj.paintTo(canvas);
+	}
+}
+
+function Paintable(){
+	this.fill = "rgb(0,0,0)";
+	this.stroke = "rgb(0,0,0)";
+	this.paintTo = function(canvas){}; // it needs to be overwriten by parent
+}
+
+Paintable.prototype = new muuNode();
+Paintable.constructor = Paintable;
+
+Paintable.prototype.fill(fill){
+	if(typeof fill === "undefined") return this.fill;
+	else this.fill = fill;
+	return this;
+}
+
+Paintable.prototype.stroke(stro){
+	if(typeof stro === "undefined") return this.stroke;
+	else this.stroke = stro;
+	return this;
+}
