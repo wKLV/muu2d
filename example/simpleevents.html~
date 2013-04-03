@@ -1,7 +1,7 @@
 <head>
 <title>Simple events</title>
 <script src="../src/muu2dbase.js"></script>
-<script src="../src/muu2dsprite.js"></script>
+<script src="../src/muu2dshapes.js"></script>
 </head>
 
 <body>
@@ -11,7 +11,6 @@
 
 <script>
 window.onload = function(){
-	var muu = new muu2d;
 	var layer = muu.addCanvas("canvas", false);
 	var square0 = new Rect(100,100);	
 	square0.stroke("rgb(0,255,0)");

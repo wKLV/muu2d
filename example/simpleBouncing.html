@@ -12,10 +12,13 @@
 </canvas>
 
 <script>
-var muu;
-window.onload = function(){
-	muu = new muu2d;
+(function(){
+var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+						window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+window.requestAnimationFrame = requestAnimationFrame;
+})();
 
+window.onload = function(){
 	var fondo = muu.addCanvas("fondo", false);
 
 	fondo.add(new Rect(400, 300).fill("rgb(10,200,50)").stroke("rgb(0,0,25)"));

@@ -10,8 +10,8 @@
 </canvas>
 
 <script>
+var resize = 1;
 window.onload = function(){
-	var muu = new muu2d;
 	var layer = muu.addCanvas("canvas", true);
 	var square = new Rect(100,100);	
 	square.stroke("rgb(0,255,0)");
@@ -20,7 +20,7 @@ window.onload = function(){
 	layer.add(square);
 
 	square.event(["mousedown"], function(ev, obj){
-obj.follow(muu.getMouse(), v2.add(obj.getPos(), new v2(ev.x, ev.y).minus()))
+obj.follow(muu.getMouse(), v2.add(obj.getPos(), new v2(ev.x, ev.y).minus() ) )
 });
 	square.event(["mouseup"], function(ev, obj){
 obj.unfollow()
