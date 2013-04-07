@@ -24,9 +24,9 @@ Rect.prototype.paintTo = function(context){
 	context.translate(this.getPos().x, this.getPos().y);
 	context.rotate(this.rotation());
 	context.fillStyle = this.fill();
-	context.fillRect(0, 0, this.size().x, this.size().y);
+	context.fillRect(-this.size().x/2, -this.size().y/2, this.size().x, this.size().y);
 	context.strokeStyle = this.stroke();
-	context.strokeRect(0, 0, this.size().x, this.size().y);
+	context.strokeRect(-this.size().x/2, -this.size().y/2, this.size().x, this.size().y);
 	context.rotate(-this.rotation());
 	context.translate(-this.getPos().x, -this.getPos().y)
 	context.scale(1/this.scale(), 1/this.scale());
