@@ -12,8 +12,8 @@ var   b2Vec2 = Box2D.Common.Math.b2Vec2
 Box2D.Common.b2Settings.b2_velocityThreshold = 0;
 
 var defaultFixture = new b2FixtureDef;
-    defaultFixture.density = 0;
-    defaultFixture.restitution = 0;
+    defaultFixture.density = 1;
+    defaultFixture.restitution = 1;
     defaultFixture.friction = 0;
 
 
