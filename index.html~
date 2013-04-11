@@ -41,11 +41,25 @@
 <p>The library is unstable and the api may change in little time.</p>
 
 <p>See the examples for more info</p>
-<a href="example/simpleshapes.html">Simple shapes</a>
-<a href="example/simpleBouncing.html">Simple animation and double canvas</a>
-<a href="example/simpleevents.html">Simple events</a>
-<a href="example/dragCube.html">Dragging example</a>
-<a href="example/simpleSprite.html">Sprites</a>
+<div style="overflow:hidden">
+<div>
+<a href="example/simpleshapes.html">Simple shapes</a> <br>
+<iframe id="example" src="example/simpleshapes.html" width=600 height=4000"></iframe>
+<a href="'example/simpleBouncing.html">Simple animation and double canvas</a> <br>
+<iframe id="example" src="example/simpleBouncing.html" width=600 height=4000"></iframe>
+<a href="'example/simpleevents.html">Simple events</a><br>
+<iframe id="example" src="example/simpleevents.html" width=600 height=400"></iframe>
+<a href="'example/dragCube.html">Dragging example</a><br>
+<iframe id="example" src="example/dragCube.html" width=600 height=400"></iframe>
+<a href="'example/simpleSprites.html">Sprites</a><br>
+<iframe id="example" src="example/simpleSprites.html" width=600 height=400"></iframe>
+<a href="'example/simpleBouncing Physics.html">Simple Physics</a> <br>
+<iframe id="example" src="example/simpleBouncing Physics.html" width=600 height=400"></iframe>
+<a href="'example/platformer.html">Simple platform "game"</a>
+</div>
+
+</div>
+</div>
         </article>
       </div>
     </div>

@@ -1,0 +1,69 @@
+<head>
+<title>Simple muu2D square</title>
+<script src="../src/muu2dbase.js"></script>
+<script src="../src/muu2dshapes.js"></script>
+<script src="../src/libs/Box2dWeb-2.1.a.3.min.js"></script>
+<script src="../src/muu2dBox.js"></script>
+</head>
+
+<body>
+<canvas id="fondo" width="600" height="350" style="position:absolute">
+</canvas>
+<canvas id="canvas" width="600" height="350" style="position:absolute">
+
+</canvas>
+
+<script>
+(function(){
+var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+    window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+window.requestAnimationFrame = requestAnimationFrame;
+})();
+var resize = 1, world;
+window.onload = function(){
+    world = new b2World(new b2Vec2(0.000001,0.000001), false);
+
+    muu.addAtlas("graphics.png", "graphics.js")
+    muu.whenReady(function(){
+    var layer = muu.addCanvas("canvas", true);
+    var bouncing = new Sprite("sprite-pelusanone").moveTo(100,10).size(80,80);
+    layer.add(bouncing);
+    var fixture = new b2FixtureDef;
+    fixture.density = 0.1;
+    fixture.restitution = 1;
+    fixture.friction = 0;
+    fixture.shape = new b2CircleShape(40);
+    bouncing.physics(fixture);
+
+    var circle = new Circle(40).moveTo(200,10).physics(fixture);
+
+    layer.add(circle);
+    var lt = 0;
+    function renderGraphics(t){
+        var dt = lt? t-lt : t;
+        lt = t;
+        for(var i=0; i<dt/100; i++){
+            world.Step(100, 10, 10);
+            world.ClearForces()
+        }
+        muu.render();
+        fondo.render();
+        requestAnimationFrame(renderGraphics)
+    }
+    requestAnimationFrame(renderGraphics);
+    });
+    var fondo = muu.addCanvas("fondo", false);
+
+    fondo.add(new Rect(400, 300).fill("rgb(10,200,50)").stroke("rgb(0,0,25)").moveTo(200,150));
+
+    var ground = new Rect(400,10).fill("rgb(10,175,100)").stroke("rgb(0,0,25)").moveTo(200,305).physics()
+    ground.physics().SetType(b2Body.b2_staticBody)
+    var wall = new Rect(10, 350).fill("rgb(10,175,100)").stroke("rgb(0,0,25)").moveTo(405,135).physics()
+    wall.physics().SetType(b2Body.b2_staticBody)
+
+    fondo.add(ground).add(wall)
+    fondo.render();
+
+}
+</script>
+</body>

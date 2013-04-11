@@ -5,14 +5,12 @@
 </head>
 
 <body>
-<canvas id="canvas" width="1000" height="1000">
+<canvas id="canvas" width="600" height="350">
 
 </canvas>
 
 <script>
-var muu;
 window.onload = function(){
-	muu = new muu2d;
 	muu.addAtlas("graphics.png", "graphics.js");
 	var layer = muu.addCanvas("canvas", false);
 	muu.whenReady(function(){

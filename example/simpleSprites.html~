@@ -5,18 +5,16 @@
 </head>
 
 <body>
-<canvas id="canvas" width="1000" height="1000">
+<canvas id="canvas" width="600" height="600">
 
 </canvas>
 
 <script>
-var muu;
 window.onload = function(){
-	muu = new muu2d;
 	muu.addAtlas("graphics.png", "graphics.js");
 	var layer = muu.addCanvas("canvas", false);
 	muu.whenReady(function(){
-	var sprite = new Sprite("sprite-pelusanone")moveTo(150,150);
+	var sprite = new Sprite("sprite-pelusanone").moveTo(150,150);
 	layer.add(sprite);
 	sprite.size(100,100);
 	muu.renderAll();

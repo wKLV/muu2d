@@ -5,20 +5,23 @@
 </head>
 
 <body>
-<canvas id="fondo" width="1000" height="900" style="position:absolute">
+<canvas id="fondo" width="600" height="600" style="position:absolute">
 </canvas>
-<canvas id="canvas" width="1000" height="900" style="position:absolute">
+<canvas id="canvas" width="600" height="600" style="position:absolute">
 
 </canvas>
 
 <script>
-var muu;
-window.onload = function(){
-	muu = new muu2d;
+(function(){
+var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+						window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+window.requestAnimationFrame = requestAnimationFrame;
+})();
 
+window.onload = function(){
 	var fondo = muu.addCanvas("fondo", false);
 
-	fondo.add(new Sprite(400, 300).fill("rgb(10,200,50)").stroke("rgb(0,0,25)"));
+	fondo.add(new Rect(400, 300).fill("rgb(10,200,50)").stroke("rgb(0,0,25)").moveTo(200,150));
 
 	fondo.moveTo(10,15);
 	fondo.render();

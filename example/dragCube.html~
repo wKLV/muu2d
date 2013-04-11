@@ -5,25 +5,25 @@
 </head>
 
 <body>
-<canvas id="canvas" width="1000" height="1000">
+<canvas id="canvas" width="600" height="600">
 
 </canvas>
 
 <script>
+var resize = 1;
 window.onload = function(){
-	var muu = new muu2d;
 	var layer = muu.addCanvas("canvas", true);
-	var square = new Rect(100,100);	
+	var square = new Rect(100,100).moveTo(50,50);	
 	square.stroke("rgb(0,255,0)");
 	square.fill("rgba(220,235,220, 0.5)");
 
 	layer.add(square);
 
 	square.event(["mousedown"], function(ev, obj){
-obj.follow(muu.getMouse(), v2.add(obj.getPos(), new v2(ev.x, ev.y).minus()))
+obj.follow(muu.getMouse(), v2.add(obj.getPos(), new v2(ev.x, ev.y).minus() ) )
 });
 	square.event(["mouseup"], function(ev, obj){
-square.unfollow()
+obj.unfollow()
 });
 
 	function renderGraphics(step){
