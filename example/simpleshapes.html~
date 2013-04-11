@@ -5,23 +5,26 @@
 </head>
 
 <body>
-<canvas id="canvas" width="1000" height="1000">
+<canvas id="canvas" width="600" height="600">
 
 </canvas>
 
 <script>
+var resize = 1;
 window.onload = function(){
-	var muu = new muu2d;
 	var layer = muu.addCanvas("canvas", false);
 	var square0 = new Rect(100,100);	
 	square0.stroke("rgb(0,255,0)");
 	square0.fill("rgba(220,235,220, 0.5)");
+        square0.moveTo(50,50);
 	var square1 = new Rect(100,50);	
 	square1.stroke("rgb(255,0,0)");
 	square1.fill("rgba(255,240,240, 0.5)");
+        square1.moveTo(50,25);
 	var square2 = new Rect(50,100);
 	square2.stroke("rgb(0,0,255)");
 	square2.fill("rgba(240,240,255, 0.5)");
+	square2.moveTo(25,50);
 
 	var circle = new Circle;
 	circle.stroke("rgb(200,200,10)");

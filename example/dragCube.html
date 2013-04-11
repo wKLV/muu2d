@@ -5,7 +5,7 @@
 </head>
 
 <body>
-<canvas id="canvas" width="1000" height="1000">
+<canvas id="canvas" width="600" height="350">
 
 </canvas>
 
@@ -13,7 +13,7 @@
 var resize = 1;
 window.onload = function(){
 	var layer = muu.addCanvas("canvas", true);
-	var square = new Rect(100,100);	
+	var square = new Rect(100,100).moveTo(50,50);	
 	square.stroke("rgb(0,255,0)");
 	square.fill("rgba(220,235,220, 0.5)");
 
