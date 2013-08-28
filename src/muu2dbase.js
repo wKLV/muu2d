@@ -16,7 +16,7 @@ function _muucheckEvent(type){ return function(ev){
 	}
 }}
 // The main object that handles the canvas on screen and resources
-var muu = new function (){
+var muucreator = function (){
 	var atlass = {}; // The atlas loades
 	var sprites = {}; // The sprites processed
 	var ready = 0; // How many files to load to begin
@@ -40,8 +40,9 @@ var muu = new function (){
 			canv.onmouseup = _muucheckEvent("mouseup");
 
 			var root = new Layer; //The root layer of all the canvas
+			root.clear = function(){ canv.getContext("2d").clearRect(0,0,canv.width, canv.height); }
 			root.render = function(){ //render this canvas
-				canv.getContext("2d").clearRect(0,0,canv.width, canv.height); //First we clean the previous state
+				root.clear();//First we clean the previous state
 				root.paintTo(canv.getContext("2d")) //Now we paint using layer function
 			};
             root.context = canv.getContext("2d");
@@ -97,7 +98,11 @@ var muu = new function (){
 	this.whenReady = function(callback){
 		readycallbacks.push(callback);
 	}
-}()
+	this.cleanAll = function(){
+		muu = new muucreator();
+	}
+}
+var muu = new muucreator();
 
 // Basic vector library
 function v2 (x,y){
@@ -106,10 +111,12 @@ function v2 (x,y){
 
 v2.add = function(x,y){
 		var tx = this.x || 0, ty = this.y || 0;
-		if(x instanceof v2){
-			if(y instanceof v2)
+		if(typeof(x.x) !== "undefined"){
+            if(typeof(y)=== "undefined")
+                tx += x.x, ty += x.y;
+			else if(typeof(y.x) !== "undefined")
 				tx = x.x +y.x, ty = x.y+ y.y;
-			else tx += x.x, ty += x.y;
+            else console.log("sum error of "+y)
 		}
 		else {
 			tx += x;
@@ -140,13 +147,33 @@ v2.scalar = function(s, v){
 	return this;
 }
 
+v2.sub = function(x, y){
+		var tx = this.x || 0, ty = this.y || 0;
+		if(typeof(x.x) !== "undefined"){
+            if(typeof(y)=== "undefined")
+                tx -= x.x, ty -= x.y;
+			else if(typeof(y.x) !== "undefined")
+				tx = x.x -y.x, ty = x.y- y.y;
+            else console.log("sum error of "+y)
+		}
+		else {
+			tx -= x;
+			ty  -= y;
+		}
+	if(typeof this.x === "undefined" ||  isNaN(this.x))
+		return new v2(tx, ty);
+	else this.x = tx, this.y = ty;
+	return this;
+
+}
+
 v2.prototype.scalar = v2.scalar
 
 v2.dot = function(x,y){
 		if(x instanceof v2)
 			if(typeof this.x === "undefined" && y instanceof v2)
 				return x.x*y.x +x.y*y.y;
-			else return this.x *x.x + this.y+ x.y;
+			else return this.x *x.x + this.y* x.y;
 		else return this.x*x+this.y*y
 	}
 
@@ -156,8 +183,12 @@ v2.prototype.lenSquared = function(){
 		return this.dot(this);
 	}
 v2.prototype.len = function (){
-		return Math.sqrt(this.lenSquared);
+		return Math.sqrt(this.lenSquared());
 	}
+
+v2.norm = function(v){
+    return v2.scalar(1/v.len(), v)
+}
 v2.prototype.norm = function(){
 		var l = this.len();
 		return new v2(this.x/l, this.y/l);
@@ -195,7 +226,7 @@ function muuNode (){
 }
 
 muuNode.prototype.moveTo = function(pos, y){
-	if(pos instanceof v2) this.position = pos;
+	if(pos.x) this.position = new v2(pos.x, pos.y);
 	else this.position = new v2(pos, y);
 	return this;
 }
